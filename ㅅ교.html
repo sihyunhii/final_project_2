@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CHARACTER MBTI</title>
+    
+        <style>
+            body {
+                padding: 0;
+                margin: 0;	
+                width: 100vw;
+                height: 100vh;
+                background-color: black;
+                cursor:none;
+            }
+
+            .container {
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            * {
+                font-family: 'WinKor', sans-serif;
+            }
+
+            #main {
+                background-color: black;
+                width: 90%;
+                text-align: center;
+            }
+
+            #travel {
+                position: absolute;
+                width: 90%;
+                height: auto;
+                top: 60px;
+                word-wrap: break-word;
+                font-size: 70px;
+                color: #FFFFFF;
+                text-align: left;
+            }
+
+            #desc {
+                position: absolute;
+                width: 55%;
+                height: auto;
+                bottom: 170px;
+                word-wrap: break-word;
+                font-size: 22px;
+                color: #FFFFFF;
+                text-align: center;
+                transform: translate(2.5em);
+            }
+
+            @font-face {
+                font-family: 'STRRETCH SANS'; 
+                src: url("STRRETCH SANS.ttf") format("truetype"); 
+            } 
+
+            p {
+                font-size: 22px;
+            }
+
+            #start{
+                position: absolute;
+                width:200px;
+                height: 40px;
+                bottom: 100px;
+                padding: 5px;
+                font-size: 30px;
+                background-color: red;
+                color: white;
+                margin: 0;
+                border: 0;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            #start:hover {
+                background-color: white;
+            }
+
+            #qna {
+                height: 100vh;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+
+            /* .qBox {
+                background-color: black;
+                color: white;
+                text-align: center;
+                font-size: 24px;
+                margin-top: 30px;
+                margin-bottom: 30px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                width: 100%;
+            } */
+
+            .answerList {
+                background-color: black;
+                color: black;
+                display: inline;
+                width: 48%;
+                border: 2px solid white;
+                font-size: 20px;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                margin-left: 5px;
+                margin-right: 5px;
+                padding: 20px;
+                border: 2px solid black;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            .answerList:hover, .answerList:focus {
+                --b:2px;   /* thickness of the border */
+                --c: red;   /* color of the border */
+                --w:120px;  /* width of border */
+                border:var(--b) solid transparent; /* space for the border */
+                background:
+                    linear-gradient(var(--c),var(--c)) top left,
+                    linear-gradient(var(--c),var(--c)) top left,
+                    linear-gradient(var(--c),var(--c)) bottom left,
+                    linear-gradient(var(--c),var(--c)) bottom left,
+                    linear-gradient(var(--c),var(--c)) top right,
+                    linear-gradient(var(--c),var(--c)) top right,
+                    linear-gradient(var(--c),var(--c)) bottom right,
+                    linear-gradient(var(--c),var(--c)) bottom right;
+                background-size:var(--b) var(--w),var(--w) var(--b);
+                background-origin:border-box;
+                background-repeat:no-repeat;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+            .img-fluid {
+                width: 100%;
+                height: auto;
+                vertical-align: middle;
+            }
+
+            .img-result {
+                width: 80%;
+                height: auto;
+                vertical-align: middle;
+            }
+
+            #result{
+                display: none;
+                background-color: black;
+                width: 100%;
+                text-align: center;
+                color: white;
+            }
+
+            .resultname {
+                font-size: 35px;
+                margin: 20px;
+            }
+
+            .resultDesc {
+                font-size: 30px;
+                margin: 20px;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+
+            @-webkit-keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            @-webkit-keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+
+            .fadeIn {
+                animation: fadeIn;
+                animation-duration: 0.5s;
+            }
+
+            .fadeOut {
+                animation: fadeOut;
+                animation-duration: 0.5s;
+            }
+
+            
+        </style>
+    </head>
+    <body>
+
+
+        <div class="container" >
+            <section id="main">
+                <div>
+                    <br><br><br><br><br><br><br><br>
+                    <input type="button" value="START" id="start" onclick="begin()">
+                </div>
+            </section>
+
+            <section id="qna">
+                <div class="status">
+                    <div class="statusBar"> </div>
+                </div>
+                <!-- <div class="qBox"> </div> -->
+                <div class="answerBox"> 
+
+                </div>
+            </section>
+
+            <section id="result"> 
+                <h1>YOUR RESULT:</h1>
+                <div class="resultname"> </div>
+                <div id="resultImg"> </div>
+                <div class="resultDesc"></div>    
+            </section>
+        </div>
+                <script>
+                // data list
+                const qnaList = [
+                {
+                    a: [ { answer: '<img src="img_1.png" class="left">', type: [2, 3, 6, 7] },
+                    { answer: '<img src="img_2.png" class="right">', type: [0, 1, 4, 5, 8] },
+                    { answer: '<img src="img_3.png" class="left">', type: [0, 1, 4, 5, 8, 9] },
+                    { answer: '<img src="img_4.png" class="right">', type: [0, 1, 4, 5, 8] }  ]
+                },
+                {
+                    a: [ { answer: '<img src="img_5.png" class="left">', type: [0, 1, 4, 5] },
+                    { answer: '<img src="img_6.png" class="right">', type: [2, 3, 6, 7] },
+                    { answer: '<img src="img_7.png" class="left">', type: [2, 3, 6, 7] },
+                    { answer: '<img src="img_8.png" class="right">', type: [2, 3, 6, 7] } ]
+                },
+                {
+                    a: [ { answer: '<img src="img_9.png" class="left">', type: [1, 3, 5, 7, 9] },
+                    { answer: '<img src="img_10.png" class="right">', type: [0, 2, 4, 6, 8] },
+                    { answer: '<img src="img_11.png" class="left">', type: [0, 2, 4, 6] },
+                    { answer: '<img src="img_12.png" class="right">', type: [0, 2, 4, 6] }]
+                },
+                {
+                    a: [ { answer: '<img src="img_13.png" class="left">', type: [0, 1, 2, 3] },
+                    { answer: '<img src="img_14.png" class="right">', type: [4, 5, 6, 7, 8] },
+                    { answer: '<img src="img_15.png" class="left">', type: [0, 1, 2, 3] },
+                    { answer: '<img src="img_16.png" class="right">', type: [4, 5, 6, 7] } ]
+                },
+                {
+                    a: [ { answer: '<img src="img_17.png" class="left">', type: [0, 1, 2, 3, 4] },
+                    { answer: '<img src="img_18.png" class="right">', type: [8, 9]},
+                    { answer: '<img src="img_19.png" class="left">', type: [0, 1, 2, 3] },
+                    { answer: '<img src="img_20.png" class="right">', type: [4, 5, 6, 7, 8] } ]
+                }
+                ]
+                
+                // result list
+
+                const infoList = [
+                { name: 'FRANCE', desc: ''},
+                { name: 'GERMANY', desc: '' },
+                { name: 'JAPAN', desc: ''},
+                { name: 'ENGLAND', desc: ''},
+                { name: 'USA', desc: ''},
+                { name: 'MEXICO', desc: ''},
+                { name: 'NORWAY', desc: ''},
+                { name: 'RUSSIA', desc: ''},
+                { name: 'TURKEY', desc: ''},
+                { name: 'INDONESIA', desc: ''},
+                ]
+
+                //main functions
+
+                const loader = document.querySelector("#loader");
+                const main = document.querySelector("#main");
+                const qna = document.querySelector("#qna");
+                const result = document.querySelector("#result");
+
+                // result array
+
+                const endPoint = 5;
+                const select = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+                //show result
+
+                function calResult(){
+                    console.log(select);
+                    var result = select.indexOf(Math.max(...select)); 
+                    return result;
+                }
+
+                //set result
+
+                function setResult(){
+                    let point = calResult();
+                    const resultName = document.querySelector('.resultname');
+                    resultName.innerHTML = infoList[point].name;
+
+                    var resultImg = document.createElement('img');
+                    const imgDiv = document.querySelector('#resultImg');
+                    var imgURL = 'image-' + point + '.jpg';
+                    resultImg.src = imgURL;
+                    resultImg.alt = point;
+                    resultImg.classList.add('img-result');
+
+                    imgDiv.appendChild(resultImg);
+
+                    const resultDesc = document.querySelector('.resultDesc');
+                    resultDesc.innerHTML = infoList[point].desc;
+                }
+
+                function goResult(){
+                    qna.style.WebkitAnimation = "fadeOut 1s";
+                    qna.style.animation = "fadeOut 1s";
+                    setTimeout(() => {
+                        result.style.WebkitAnimation = "fadeIn 1s";
+                        result.style.animation = "fadeIn 1s";
+                        setTimeout(() => {
+                            qna.style.display = "none";
+                            result.style.display =  "block"
+                        }, 450)})
+                        setResult();
+                }
+
+                function addAnswer(answerText, qIdx, idx){
+                    var a = document.querySelector('.answerBox');
+                    var answer = document.createElement('button');
+                    answer.classList.add('answerList');
+                    answer.classList.add('fadeIn');
+
+                    a.appendChild(answer);
+                    answer.innerHTML = answerText;
+                    answer.addEventListener("click", function(){
+                        var children = document.querySelectorAll('.answerList');
+                        for(let i = 0; i < children.length; i++){
+                            children[i].disabled = true;
+                            children[i].style.WebkitAnimation = "fadeOut 0.5s";
+                            children[i].style.animation = "fadeOut 0.5s";
+                        }
+                        setTimeout(() => {
+                            var target = qnaList[qIdx].a[idx].type;
+                            for(let i = 0; i < target.length; i++) {
+                                select[target[i]] += 1;
+                            }
+                            for(let i = 0; i < children.length; i++) {
+                                children[i].style.display = 'none';
+                            }
+                            goNext(++qIdx);
+                        }, 450)
+                    },false );
+                }
+
+                function goNext(qIdx) {
+                    if(qIdx === endPoint){
+                        goResult();
+                        return;
+                    }
+                    var q = document.querySelector('.qBox');
+                    for(let i in qnaList[qIdx].a){
+                        addAnswer(qnaList[qIdx].a[i].answer, qIdx, i);
+                    }
+                }
+
+                // function for start button
+                function begin(){
+                    main.style.WebkitAnimation = "fadeOut 1s";
+                    main.style.animation = "fadeOut 1s";
+                    setTimeout(() => {
+                        qna.style.WebkitAnimation = "fadeIn 1s";
+                        qna.style.animation = "fadeIn 1s";
+                        setTimeout(() => {
+                            main.style.display = "none";
+                            qna.style.display = "block";
+                        }, 450);
+                        let qIdx = 0;
+                        goNext(qIdx);
+                    }, 450)
+                }
+            </script>
+        </div>
+    </body>
+</html>
